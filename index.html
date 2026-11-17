@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do I Need a Food License? | Clinton County Health District</title>
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { padding: 4px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<!-- Clinton County Health District – Food License Check. Hosted on GitHub Pages; shown on the District site in an iframe. -->
+<div id="ccfw" class="ccfw" aria-label="Food license wizard">
+  <style>
+    /* All styles are scoped to #ccfw so they won't collide with the site theme. */
+    #ccfw {
+      --ccfw-primary: #1d4f73;      /* buttons, headings  (7.9:1 on white) */
+      --ccfw-primary-dark: #133650;
+      --ccfw-accent: #f2f6f9;       /* panels */
+      --ccfw-border: #c5d3de;
+      --ccfw-text: #1b1b1b;
+      --ccfw-muted: #4a5560;        /* 7.3:1 on white */
+      --ccfw-ok-bg: #e7f4ea;  --ccfw-ok-bd: #2e7d3e;  --ccfw-ok-tx: #1c5428;
+      --ccfw-lic-bg: #fff6e0; --ccfw-lic-bd: #a86b00; --ccfw-lic-tx: #6b4400;
+      --ccfw-no-bg: #fdecea;  --ccfw-no-bd: #b3261e;  --ccfw-no-tx: #8a1c16;
+      --ccfw-info-bg: #e8f0f7; --ccfw-info-bd: #1d4f73; --ccfw-info-tx: #133650;
+      --ccfw-focus: #ffbf47;
+      font-family: inherit; color: var(--ccfw-text); line-height: 1.55;
+      width: 100%; max-width: none; margin: 0; font-size: 1.05rem;
+    }
+    #ccfw *, #ccfw *::before, #ccfw *::after { box-sizing: border-box; }
+    #ccfw .ccfw-card { background: #fff; border: 1px solid var(--ccfw-border); border-radius: 10px; padding: 1.5rem 1.5rem 1.75rem; }
+    #ccfw .ccfw-title { font-size: 2.4rem; line-height: 1.15; font-weight: 800; color: var(--ccfw-primary-dark); margin: 0 0 .35rem; }
+    #ccfw .ccfw-subtitle { font-size: 1.1rem; color: var(--ccfw-muted); margin: 0 0 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--ccfw-border); }
+    #ccfw .ccfw-planning { background: var(--ccfw-lic-bg); border: 1px solid var(--ccfw-lic-bd); border-left-width: 6px; border-radius: 8px; padding: .85rem 1.1rem; margin: 0 0 1.25rem; }
+    #ccfw .ccfw-planning p { margin: 0; }
+    #ccfw .ccfw-toolbar { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    #ccfw .ccfw-progress { font-size: .95rem; color: var(--ccfw-muted); margin: 0; }
+    #ccfw .ccfw-nav { display: flex; gap: .5rem; flex-wrap: wrap; }
+    #ccfw h3 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .75rem; color: var(--ccfw-primary-dark); }
+    #ccfw h4 { font-size: 1.15rem; margin: 1.4rem 0 .5rem; color: var(--ccfw-primary-dark); }
+    #ccfw h3:focus { outline: none; }
+    #ccfw p { margin: 0 0 .85rem; }
+    #ccfw ul { margin: 0 0 1rem 1.25rem; padding: 0; }
+    #ccfw li { margin-bottom: .35rem; }
+    #ccfw a { color: var(--ccfw-primary); text-decoration: underline; }
+    #ccfw a:hover { color: var(--ccfw-primary-dark); }
+    #ccfw .ccfw-lead { font-size: 1.1rem; }
+    #ccfw .ccfw-hint { color: var(--ccfw-muted); font-size: .98rem; }
+    #ccfw button, #ccfw .ccfw-btn { font: inherit; cursor: pointer; border-radius: 8px; }
+    #ccfw .ccfw-choices { display: grid; gap: .65rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+    #ccfw .ccfw-choices li { margin: 0; }
+    #ccfw .ccfw-choice {
+      width: 100%; text-align: left; background: #fff; color: var(--ccfw-text);
+      border: 2px solid var(--ccfw-primary); padding: .9rem 1.1rem; font-size: 1.05rem;
+      display: block;
+    }
+    #ccfw .ccfw-choice strong { display: block; color: var(--ccfw-primary-dark); font-size: 1.08rem; }
+    #ccfw .ccfw-choice span { display: block; color: var(--ccfw-muted); font-size: .95rem; margin-top: .15rem; }
+    /* Hover / keyboard focus / press: fill the whole option with the primary color */
+    #ccfw .ccfw-choice:hover, #ccfw .ccfw-choice:focus-visible, #ccfw .ccfw-choice:active {
+      background: var(--ccfw-primary); border-color: var(--ccfw-primary-dark);
+      box-shadow: 0 3px 10px rgba(19,54,80,.28);
+    }
+    #ccfw .ccfw-choice:hover strong, #ccfw .ccfw-choice:focus-visible strong, #ccfw .ccfw-choice:active strong { color: #fff; }
+    #ccfw .ccfw-choice:hover span, #ccfw .ccfw-choice:focus-visible span, #ccfw .ccfw-choice:active span { color: #e3edf5; }
+    #ccfw .ccfw-choice:active { background: var(--ccfw-primary-dark); }
+    #ccfw .ccfw-big .ccfw-choice { padding: 1.15rem 1.25rem; }
+    #ccfw .ccfw-big .ccfw-choice strong { font-size: 1.2rem; }
+    #ccfw .ccfw-secondary {
+      background: #fff; color: var(--ccfw-primary); border: 1px solid var(--ccfw-primary);
+      padding: .45rem .85rem; font-size: .95rem;
+    }
+    #ccfw .ccfw-secondary:hover { background: var(--ccfw-primary); color: #fff; }
+    #ccfw .ccfw-primary {
+      background: var(--ccfw-primary); color: #fff; border: 2px solid var(--ccfw-primary);
+      padding: .75rem 1.4rem; font-size: 1.05rem; font-weight: 600;
+    }
+    #ccfw .ccfw-primary:hover { background: var(--ccfw-primary-dark); }
+    #ccfw button:focus-visible, #ccfw a:focus-visible, #ccfw input:focus-visible + label, #ccfw summary:focus-visible {
+      outline: 3px solid var(--ccfw-focus); outline-offset: 2px; box-shadow: 0 0 0 5px var(--ccfw-primary-dark);
+    }
+    #ccfw fieldset { border: 0; padding: 0; margin: 1.25rem 0 0; }
+    #ccfw legend { font-weight: 600; margin-bottom: .5rem; padding: 0; }
+    #ccfw .ccfw-check { display: flex; gap: .7rem; align-items: flex-start; padding: .7rem .85rem; border: 1px solid var(--ccfw-border); border-radius: 8px; margin-bottom: .5rem; background:#fff; }
+    #ccfw .ccfw-check input { width: 1.35rem; height: 1.35rem; margin: .15rem 0 0; flex: 0 0 auto; accent-color: var(--ccfw-primary); }
+    #ccfw .ccfw-check label { cursor: pointer; }
+    #ccfw .ccfw-check label span { display: block; color: var(--ccfw-muted); font-size: .95rem; }
+    #ccfw .ccfw-check { border-width: 2px; }
+    #ccfw .ccfw-check:hover { background: #dce9f3; border-color: var(--ccfw-primary); }
+    #ccfw .ccfw-check.is-checked { background: #cfe1ef; border-color: var(--ccfw-primary-dark); box-shadow: inset 6px 0 0 var(--ccfw-primary); }
+    #ccfw .ccfw-check.is-checked label { font-weight: 600; }
+    #ccfw .ccfw-check.is-checked label span { font-weight: 400; color: #33404b; }
+    #ccfw .ccfw-check:focus-within { border-color: var(--ccfw-primary); box-shadow: 0 0 0 3px var(--ccfw-focus); }
+    #ccfw .ccfw-check.is-checked:focus-within { box-shadow: inset 6px 0 0 var(--ccfw-primary), 0 0 0 3px var(--ccfw-focus); }
+    #ccfw .ccfw-error { color: var(--ccfw-no-tx); font-weight: 600; margin-top: .5rem; }
+    #ccfw details { background: var(--ccfw-accent); border: 1px solid var(--ccfw-border); border-radius: 8px; padding: .6rem 1rem; margin: 1rem 0 0; }
+    #ccfw summary { cursor: pointer; font-weight: 600; color: var(--ccfw-primary-dark); }
+    #ccfw details[open] summary { margin-bottom: .6rem; }
+    #ccfw .ccfw-cols { columns: 2; column-gap: 2rem; }
+    #ccfw .ccfw-cols li { break-inside: avoid; }
+    #ccfw .ccfw-answer { border: 3px solid; border-radius: 12px; padding: 1.25rem 1.5rem 1.4rem; margin: 0 0 1.5rem; }
+    #ccfw .ccfw-answer-label { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin: 0 0 .6rem; color: inherit; }
+    #ccfw .ccfw-answer .ccfw-badge { font-size: 1.15rem; padding: .4rem 1rem; background: #fff; }
+    #ccfw .ccfw-answer h3 { font-size: 1.75rem; margin: 0; color: var(--ccfw-text); }
+    #ccfw .ccfw-details-head { font-size: 1.15rem; margin: 0 0 .75rem; color: var(--ccfw-primary-dark); }
+    #ccfw .ccfw-badge { display: inline-flex; align-items: center; gap: .45rem; font-weight: 700; padding: .3rem .75rem; border-radius: 999px; border: 2px solid; font-size: .95rem; margin-bottom: .75rem; }
+    #ccfw .ccfw-result { border-left: 6px solid; border-radius: 8px; padding: 1rem 1.15rem; margin: 0 0 1rem; }
+    #ccfw .ok   { background: var(--ccfw-ok-bg);   border-color: var(--ccfw-ok-bd);   color: var(--ccfw-ok-tx); }
+    #ccfw .lic  { background: var(--ccfw-lic-bg);  border-color: var(--ccfw-lic-bd);  color: var(--ccfw-lic-tx); }
+    #ccfw .no   { background: var(--ccfw-no-bg);   border-color: var(--ccfw-no-bd);   color: var(--ccfw-no-tx); }
+    #ccfw .info { background: var(--ccfw-info-bg); border-color: var(--ccfw-info-bd); color: var(--ccfw-info-tx); }
+    #ccfw .ccfw-result p, #ccfw .ccfw-result li { color: var(--ccfw-text); }
+    #ccfw .ccfw-result h4 { margin-top: 0; color: inherit; }
+    #ccfw .ccfw-contact { background: var(--ccfw-accent); border: 1px solid var(--ccfw-border); border-radius: 8px; padding: 1rem 1.15rem; margin-top: 1.25rem; }
+    #ccfw .ccfw-contact p { margin: 0 0 .3rem; }
+    #ccfw .ccfw-cite { font-size: .88rem; color: var(--ccfw-muted); margin-top: .5rem; }
+    #ccfw .ccfw-answers { font-size: .95rem; }
+    #ccfw .ccfw-answers dt { font-weight: 600; margin-top: .5rem; }
+    #ccfw .ccfw-answers dd { margin: 0 0 0 1rem; }
+    #ccfw .ccfw-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+    #ccfw .ccfw-disclaimer { font-size: .88rem; color: var(--ccfw-muted); margin-top: 1.25rem; border-top: 1px solid var(--ccfw-border); padding-top: .85rem; }
+    #ccfw .ccfw-sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 600px) {
+      #ccfw .ccfw-card { padding: 1.1rem 1rem 1.25rem; }
+      #ccfw h3 { font-size: 1.35rem; }
+      #ccfw .ccfw-cols { columns: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) { #ccfw * { transition: none !important; } }
+    @media print {
+      #ccfw .ccfw-toolbar, #ccfw .ccfw-actions, #ccfw .ccfw-noprint { display: none !important; }
+      #ccfw .ccfw-card { border: 0; padding: 0; }
+      #ccfw details { display: block; }
+      #ccfw details > *:not(summary) { display: block !important; }
+      #ccfw a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; }
+    }
+  </style>
+
+  <div class="ccfw-card">
+    <h2 class="ccfw-title">Food License Check</h2>
+    <p class="ccfw-subtitle">Answer a few questions to find out which food license, if any, you may need in Clinton County.</p>
+    <div class="ccfw-toolbar ccfw-noprint">
+      <p class="ccfw-progress" id="ccfw-progress" aria-live="polite"></p>
+      <div class="ccfw-nav">
+        <button type="button" class="ccfw-secondary" id="ccfw-back">&larr; Previous question</button>
+        <button type="button" class="ccfw-secondary" id="ccfw-restart">Start over</button>
+      </div>
+    </div>
+    <div id="ccfw-body"></div>
+  </div>
+
+  <noscript><p>This tool needs JavaScript. Please call the Clinton County Health District at (937) 382-3829 for help finding out whether you need a food license.</p></noscript>
+
+  <script>
+  (function () {
+    "use strict";
+
+    /* ---------------------------------------------------------------
+       CONFIG: edit these values. Leave a URL blank ("") to hide that link.
+       --------------------------------------------------------------- */
+    var CONFIG = {
+      agency: "Clinton County Health District",
+      program: "Environmental Health – Food Safety Program",
+      phone: "(937) 382-3829",
+      email: "info@clincohd.com",
+      address: "111 S. Nelson Ave., Wilmington, OH 45177",
+      hours: "Monday–Friday",
+      foodPageUrl: "",           // PLACEHOLDER: food safety program page, e.g. "/food-safety"
+      applicationsUrl: "",       // PLACEHOLDER: license applications page
+      feeScheduleUrl: "",        // PLACEHOLDER: food license fee schedule
+      tempNoticeDays: "5",       // days of notice required for temporary licenses
+      lastReviewed: "November 2026"
+    };
+
+    var LINKS = {
+      odaFood: "https://agri.ohio.gov/divisions/food-safety",
+      homeBakery: "https://agri.ohio.gov/divisions/food-safety/licenses/Home-Bakery-Registration",
+      farmMarket: "https://agri.ohio.gov/divisions/food-safety/forms/farm-market-registration-form",
+      gateway: "https://business.ohio.gov",
+      orc371701: "https://codes.ohio.gov/ohio-revised-code/section-3717.01",
+      orc371722: "https://codes.ohio.gov/ohio-revised-code/section-3717.22",
+      orc371742: "https://codes.ohio.gov/ohio-revised-code/section-3717.42",
+      oacCottage: "https://codes.ohio.gov/ohio-administrative-code/chapter-901:3-20",
+      findLHD: "https://odh.ohio.gov/find-local-health-districts"
+    };
+    var ODA = "Ohio Department of Agriculture (ODA), Division of Food Safety: (614) 728-6250, foodsafety@agri.ohio.gov";
+
+    /* ---------------------------------------------------------------
+       Helpers
+       --------------------------------------------------------------- */
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function a(href, text) { return '<a href="' + href + '" target="_blank" rel="noopener">' + text + '<span class="ccfw-sr"> (opens in a new tab)</span></a>'; }
+    function ul(items) { return "<ul>" + items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>"; }
+    function cite(t) { return '<p class="ccfw-cite">Based on: ' + t + "</p>"; }
+    function box(tone, title, html) { return '<div class="ccfw-result ' + tone + '"><h4>' + title + "</h4>" + html + "</div>"; }
+    var BADGE = {
+      ok:   ["ok",   "&#10003;", "No food license needed"],
+      lic:  ["lic",  "!",        "A license is likely needed"],
+      no:   ["no",   "&#10007;", "Not allowed as described"],
+      info: ["info", "i",        "Let’s talk"]
+    };
+    function tempTiming() {
+      return CONFIG.tempNoticeDays ? "Apply at least " + esc(CONFIG.tempNoticeDays) + " days before the event." : "Apply well before the event. Contact us for deadlines.";
+    }
+
+    var COTTAGE_LIST = [
+      "Baked goods that don’t need refrigeration (cookies, breads, brownies, fruit pies, cakes with shelf-stable icing)",
+      "Jams and jellies (made with sugar; not freezer jam or sugar-free)",
+      "Fruit butters and fruit chutneys",
+      "Candy (but <em>not</em> fresh fruit dipped in or covered with candy)",
+      "Flavored honey (from an exempt Ohio beekeeper)",
+      "Maple sugar (from an exempt Ohio maple syrup producer)",
+      "Granola, granola bars, candy-dipped granola bars (dried fruit must be commercially dried)",
+      "Popcorn, flavored popcorn, kettle corn, popcorn balls, caramel corn",
+      "Unfilled baked donuts",
+      "Waffle cones (including candy-dipped) and pizzelles",
+      "Dry cereal and nut snack mixes with seasonings",
+      "Roasted coffee (whole bean or ground)",
+      "Dry baking mixes in a jar (like cookie mix)",
+      "Dry herbs, herb blends, and dry seasoning blends",
+      "Dry soup mixes (with commercially dried vegetables, beans, grains)",
+      "Dry tea blends"
+    ];
+    var NOT_COTTAGE = [
+      "Cheesecake; cream, custard, pumpkin, sweet potato, or meringue pies; cream-filled pastries or donuts (home bakery license may work)",
+      "Salsa, sauces, pickles, relishes, canned vegetables, or anything in a pressure canner",
+      "Freezer jam, sugar-free jams and jellies",
+      "Candy apples or other candy-covered fresh fruit",
+      "Home-dried or freeze-dried fruits, vegetables, or meats; jerky",
+      "Meals, sandwiches, meat, dairy, or eggs",
+      "Beverages, kombucha, cold brew",
+      "Anything vacuum-sealed (reduced oxygen packaging)"
+    ];
+
+    function contactBlock() {
+      var h = '<div class="ccfw-contact"><p><strong>' + esc(CONFIG.agency) + "</strong><br>" + esc(CONFIG.program) + "</p>" +
+        "<p>Phone: " + esc(CONFIG.phone) + " &nbsp;|&nbsp; Email: <a href=\"mailto:" + esc(CONFIG.email) + "\">" + esc(CONFIG.email) + "</a></p>" +
+        "<p>" + esc(CONFIG.address) + "</p>";
+      if (CONFIG.foodPageUrl) h += '<p><a href="' + CONFIG.foodPageUrl + '">Food safety program page</a></p>';
+      if (CONFIG.applicationsUrl) h += '<p><a href="' + CONFIG.applicationsUrl + '">License applications and forms</a></p>';
+      if (CONFIG.feeScheduleUrl) h += '<p><a href="' + CONFIG.feeScheduleUrl + '">Food license fee schedule</a></p>';
+      return h + "</div>";
+    }
+
+    function otherAgencies() {
+      return "<details><summary>Other things a new food business may need (not from the health district)</summary>" + ul([
+        "<strong>Vendor’s license</strong> from the Ohio Department of Taxation if you sell taxable items. Start at " + a(LINKS.gateway, "Ohio Business Gateway") + ".",
+        "<strong>Business registration</strong> with the Ohio Secretary of State if you form an LLC or corporation or use a trade name.",
+        "<strong>Zoning approval</strong> from your city, village, or township, including for home-based businesses.",
+        "<strong>Building, plumbing, and fire</strong> permits for construction or remodeling.",
+        "<strong>Liquor permit</strong> from the Ohio Division of Liquor Control if you sell alcohol.",
+        "<strong>Private well or septic system</strong>: a business on a private well or septic system may need water testing or a sewage system review. Ask us.",
+        "<strong>Food safety training</strong>: many licensed operations need staff with Ohio Person in Charge or Manager certification. We offer classes."
+      ]) + "</details>";
+    }
+
+    /* ---------------------------------------------------------------
+       Question & result tree
+       Each node: { q, help, more, choices:[{label, desc, go, set}] }
+       or multi:  { q, help, multi:[{id,label,desc}], go }
+       or result: { result: function(state) -> {badge, title, html} }
+       --------------------------------------------------------------- */
+    var N = {};
+
+    N.start = {
+      big: true,
+      q: "Do you plan to sell food in Clinton County?",
+      help: "“Selling” includes charging admission or a ticket price that includes food, or requiring a donation to get food.",
+      more: "<p>This tool covers food businesses and events in Clinton County, Ohio. Selling somewhere else in Ohio? Contact that county’s health district: " + a(LINKS.findLHD, "Find your local health district") + ".</p>",
+      choices: [
+        { label: "Yes, I plan to sell food", desc: "Including at events, from home, online, or through a business", go: "type" },
+        { label: "No, I plan to only give food away", desc: "Free food, with no charge or required donation", go: "R_giveaway" }
+      ]
+    };
+
+    N.type = {
+      q: "Which of these best describes what you want to do?",
+      help: "Pick the closest match. You can go back and change your answer.",
+      choices: [
+        { label: "Make food in my home kitchen to sell", desc: "Baked goods, candy, jams, snacks, home-cooked meals", go: "home_list" },
+        { label: "Sell food at a one-time event", desc: "A fair, festival, concert, craft show, or other event lasting 5 days or less", go: "event_org" },
+        { label: "Run a food truck, trailer, cart, or mobile stand", desc: "A business that moves to different locations", go: "mobile_hq" },
+        { label: "Open a restaurant, café, bar, or catering business", desc: "Serving ready-to-eat food or drinks", go: "fso_exempt" },
+        { label: "Open a store or market", desc: "Grocery, convenience store, meat market, bakery counter, or similar", go: "rfe_exempt" },
+        { label: "Sell products from my farm", desc: "Produce, eggs, meat, poultry, honey, maple syrup", go: "farm_products" },
+        { label: "Raise money for a church, school, or nonprofit", desc: "Fundraisers, dinners, bake sales, concession stands", go: "np_type" },
+        { label: "Place food vending machines", desc: "", go: "vend_what" },
+        { label: "Make packaged food to sell wholesale to stores", desc: "Sauces, salsa, canned goods, beverages, and other packaged foods", go: "R_wholesale" },
+        { label: "Something else / I’m not sure", desc: "", go: "R_unsure" }
+      ]
+    };
+
+    /* ---------- HOME KITCHEN ---------- */
+    N.home_list = {
+      q: "Is everything you plan to make on Ohio’s cottage food list?",
+      help: "Ohio lets people make certain lower-risk foods in their home kitchen with no license. These are called cottage foods.",
+      moreOpen: true,
+      moreTitle: "See the cottage food list",
+      more: "<h4>Allowed cottage foods</h4><ul class=\"ccfw-cols\">" + COTTAGE_LIST.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>" +
+            "<h4>Not cottage foods (examples)</h4>" + ul(NOT_COTTAGE) +
+            cite(a("https://law.cornell.edu/regulations/ohio/Ohio-Admin-Code-901-3-20-04", "OAC 901:3-20-04") + " (approved list); " + a(LINKS.oacCottage, "OAC 901:3-20-05") + " (prohibitions)"),
+      choices: [
+        { label: "Yes, everything is on the list", go: "home_def", set: { home: "cottage" } },
+        { label: "No, or some items are not on the list", go: "home_bakery_q" }
+      ]
+    };
+
+    N.home_bakery_q = {
+      q: "Are the items that aren’t on the list baked goods that need refrigeration?",
+      help: "Examples: cheesecake; cream, custard, pumpkin, or meringue pies; cream-filled pastries.",
+      more: "<p>Ohio’s <strong>home bakery</strong> registration (from the Ohio Department of Agriculture) lets you bake these items at home after a kitchen inspection. A home bakery can also make everything on the cottage food list.</p>",
+      choices: [
+        { label: "Yes, they’re baked goods that need refrigeration", go: "home_def", set: { home: "bakery" } },
+        { label: "No, I want to make other foods", desc: "Meals, salsa, canned goods, sauces, jerky, freeze-dried foods, etc.", go: "home_meals" }
+      ]
+    };
+
+    N.home_def = {
+      q: "Will you make the food in the home you own and live in?",
+      help: "Ohio law defines “home” for cottage foods and home bakeries narrowly.",
+      moreOpen: true,
+      moreTitle: "What counts as a “home”",
+      more: ul([
+        "It is your <strong>primary residence</strong>, and it is <strong>occupied by its owner</strong>.",
+        "The kitchen has <strong>only one stove or oven</strong> (a double oven is OK) of ordinary residential design, not commercial equipment.",
+        "The food is made in the home’s ordinary kitchen."
+      ]) + "<p class=\"ccfw-hint\">Renting, or using a second kitchen? Call ODA before you start.</p>" +
+        cite(a("https://codes.ohio.gov/ohio-revised-code/section-3715.01", "ORC 3715.01(A)(17)") + "; ORC 911.02"),
+      choices: [
+        { label: "Yes, that describes my home kitchen", go: function (s) { return s.home === "bakery" ? "bakery_where" : "cottage_where"; } },
+        { label: "No / not sure", go: "R_home_not_qualify" }
+      ]
+    };
+
+    N.cottage_where = {
+      q: "Where do you plan to sell your cottage foods?",
+      help: "Check all that apply.",
+      multi: [
+        { id: "home", label: "From my home", desc: "Customers buy or pick up at my house" },
+        { id: "fm", label: "At farmers markets" },
+        { id: "farmmkt", label: "At an ODA-registered farm market" },
+        { id: "govfest", label: "At a festival run by a city, village, township, or county", desc: "Lasting 7 days or less" },
+        { id: "stores", label: "To Ohio grocery stores or restaurants", desc: "They resell my product or use it in their food" },
+        { id: "private", label: "At private events", desc: "Craft shows, flea markets, church bazaars, pop-ups, private festivals or fairs" },
+        { id: "online", label: "Online or through social media orders" },
+        { id: "outofstate", label: "Outside Ohio", desc: "Including shipping to other states" }
+      ],
+      go: "R_cottage"
+    };
+
+    N.bakery_where = {
+      q: "Where do you plan to sell your home bakery products?",
+      help: "Check all that apply.",
+      multi: [
+        { id: "home", label: "From my home" },
+        { id: "away", label: "At farmers markets, events, or pop-ups" },
+        { id: "stores", label: "To stores, cafés, or restaurants" },
+        { id: "outofstate", label: "Outside Ohio" }
+      ],
+      go: "R_bakery"
+    };
+
+    N.home_meals = {
+      q: "Do you want to make individual meals or plates for customers?",
+      help: "For example: meal prep, family dinners, plates, or full meals.",
+      choices: [
+        { label: "Yes, served to guests in my home", go: "home_meals_on" },
+        { label: "Yes, cooked at home and picked up or delivered", go: "home_meals_off" },
+        { label: "No, I want to make packaged products", desc: "Salsa, sauces, canned goods, jerky, pickles, beverages, freeze-dried foods, pet treats", go: "R_processing" }
+      ]
+    };
+
+    N.home_meals_on = {
+      q: "Will you serve 115 meals or fewer per week, in a home you own and live in?",
+      choices: [
+        { label: "Yes, 115 meals or fewer per week in my owner-occupied home", go: "R_meals_on_exempt" },
+        { label: "No, more than that, or I don’t own the home", go: "R_fso_kitchen" }
+      ]
+    };
+
+    N.home_meals_off = {
+      q: "Will you make 20 or fewer meals or meal components in any 7-day period?",
+      help: "A “meal component” could be a single pie or a tray of baked goods that is part of a meal.",
+      choices: [
+        { label: "Yes, 20 or fewer in any 7 days", go: "R_meals_off_exempt" },
+        { label: "No, more than 20 in a 7-day period", go: "R_fso_kitchen" }
+      ]
+    };
+
+    /* ---------- ONE-TIME EVENTS ---------- */
+    N.event_org = {
+      q: "Who is putting on the event?",
+      choices: [
+        { label: "A city, village, township, or county", desc: "A government-run festival or celebration lasting 7 days or less", go: "event_food", set: { gov: true } },
+        { label: "A private group, business, or fair", desc: "Craft shows, flea markets, concerts, fairs, private festivals", go: "event_food", set: { gov: false } },
+        { label: "My own church, school, or nonprofit", go: "np_type" }
+      ]
+    };
+
+    N.event_org_plain = { q: N.event_org.q, choices: N.event_org.choices.slice(0, 2) };
+
+    N.event_food = {
+      q: "What will you sell at the event?",
+      help: "Pick the option with your highest-risk item. For example, if you sell packaged cookies and also hot dogs, pick hot dogs.",
+      choices: [
+        { label: "Food cooked, assembled, or served on site", desc: "Hot dogs, burgers, funnel cakes, lemonade, plated food, drinks poured or scooped", go: "R_temp_fso" },
+        { label: "Packaged foods that need refrigeration, or bulk unpackaged foods", desc: "Frozen meat, cheese, eggs, bulk candy, home bakery items", go: "R_temp_rfe" },
+        { label: "Home-made cottage foods, packaged and labeled", desc: "Cookies, bread, jams, candy, kettle corn made at home", go: "R_event_cottage" },
+        { label: "Whole, uncut fruits and vegetables, or honey, maple syrup, or sorghum I produced", go: "R_event_produce" },
+        { label: "Only store-bought, factory-sealed snacks or drinks that don’t need refrigeration", desc: "Bottled water and soda, chips, candy bars", go: "R_event_prepack" }
+      ]
+    };
+
+    /* ---------- MOBILE ---------- */
+    N.mobile_hq = {
+      q: "Where is your business headquartered?",
+      help: "Ohio mobile food licenses come from the health district where the business is based. The license is good statewide.",
+      choices: [
+        { label: "In Clinton County", go: "mobile_what", set: { hq: "clinton" } },
+        { label: "Somewhere else in Ohio", go: "mobile_what", set: { hq: "ohio" } },
+        { label: "Outside Ohio", go: "mobile_what", set: { hq: "out" } }
+      ]
+    };
+
+    N.mobile_what = {
+      q: "What will your mobile unit offer?",
+      help: "Pick the option with your highest-risk item.",
+      choices: [
+        { label: "Cook, assemble, or hold foods hot or cold", desc: "Burgers, tacos, BBQ, pizza, sandwiches, hand-dipped ice cream, specialty coffee drinks with milk", go: "R_mobile", set: { mob: "high" } },
+        { label: "Simple ready-to-eat treats or drinks that don’t need temperature control", desc: "Popcorn, kettle corn, cotton candy, shaved ice, drip coffee", go: "R_mobile", set: { mob: "lowfso" } },
+        { label: "Only sealed, packaged foods", desc: "Including frozen or refrigerated packaged meat, eggs, cheese, or cottage and home bakery products", go: "R_mobile", set: { mob: "lowrfe" } }
+      ]
+    };
+
+    /* ---------- RESTAURANT / FOOD SERVICE OPERATION ---------- */
+    N.fso_exempt = {
+      q: "Do any of these describe your operation?",
+      help: "Ohio law exempts some small operations from food service licensing.",
+      choices: [
+        { label: "I will serve 13 or fewer people a day", go: "R_fso_13" },
+        { label: "Owner-occupied bed and breakfast", desc: "6 or fewer guest rooms, breakfast only, 16 or fewer guests", go: "R_fso_bnb" },
+        { label: "Type A or Type B family child care home", desc: "Serving only the children in my care", go: "R_fso_childcare" },
+        { label: "None of these", go: "fso_kind" }
+      ]
+    };
+
+    N.fso_kind = {
+      q: "What type of food service is it?",
+      choices: [
+        { label: "Restaurant, café, bar, coffee shop, or other fixed location", go: "fso_season", set: { fso: "fixed" } },
+        { label: "Catering", desc: "Preparing food for events at other locations, priced per event", go: "fso_season", set: { fso: "catering" } },
+        { label: "Delivery only", desc: "Taking orders for food made by other licensed kitchens, delivered by people who don’t work for them", go: "fso_season", set: { fso: "delivery" } },
+        { label: "Church, school, government, or nonprofit kitchen", desc: "Ongoing, not a short fundraiser", go: "fso_season", set: { fso: "fixed", noncommercial: true } }
+      ]
+    };
+
+    N.fso_season = {
+      q: "Will you operate more than 6 months a year?",
+      choices: [
+        { label: "Yes, more than 6 months a year", go: function (s) { return s.fso === "fixed" ? "fso_risk" : "R_fso"; }, set: { seasonal: false } },
+        { label: "No, 6 months or less (seasonal)", go: function (s) { return s.fso === "fixed" ? "fso_risk" : "R_fso"; }, set: { seasonal: true } }
+      ]
+    };
+
+    N.fso_risk = {
+      q: "Which of these will you do?",
+      help: "Check all that apply. This gives an early estimate of your risk level, which sets your inspection frequency and fees. The health district makes the final call.",
+      multi: [
+        { id: "r1", label: "Serve coffee, self-serve drinks, prepackaged foods, or whole produce", lvl: 1 },
+        { id: "r2", label: "Handle or portion foods that don’t need temperature control, or keep packaged foods at the temperature they arrived", desc: "Baked goods, popcorn, hand-dipping commercial ice cream, heating packaged commercial foods to serve right away", lvl: 2 },
+        { id: "r3", label: "Cook or assemble foods that need temperature control", desc: "Burgers, sandwiches, pizza, slicing deli meat or cheese, handling raw meat, soft-serve machine", lvl: 3 },
+        { id: "r4", label: "Cook, cool, and reheat foods in bulk, or other complex preparation", desc: "Leftovers reheated, serving raw or undercooked animal foods (sushi, rare burgers), serving nursing home or hospital patients, smoking or curing, vacuum packing, using time instead of temperature control", lvl: 4 }
+      ],
+      go: "R_fso"
+    };
+
+    /* ---------- STORE / RETAIL FOOD ESTABLISHMENT ---------- */
+    N.rfe_exempt = {
+      q: "Do any of these describe your store?",
+      help: "Ohio law exempts some low-risk stores from retail food licensing.",
+      moreTitle: "How big is 200 cubic feet?",
+      more: "<p>Multiply height × width × depth of all your food displays in feet. One shelving unit 6 ft tall × 4 ft wide × 2 ft deep is 48 cubic feet, so about four of those reach 200 cubic feet.</p>",
+      choices: [
+        { label: "I will sell only factory-sealed foods that don’t need refrigeration, in displays under 200 cubic feet total", desc: "Gift shops, hardware stores, gas stations with a small snack rack", go: "R_rfe_small" },
+        { label: "I will sell only whole, uncut fruits and vegetables at a roadside stand", go: "R_rfe_roadside" },
+        { label: "I will sell only alcohol, sealed beverages, or fountain drinks that don’t need refrigeration", go: "R_rfe_bev" },
+        { label: "Low-risk food in displays under 500 square feet, sold 6 months a year or less", go: "R_rfe_500" },
+        { label: "None of these", go: "rfe_season" }
+      ]
+    };
+
+    N.rfe_season = {
+      q: "Will the store operate more than 6 months a year?",
+      choices: [
+        { label: "Yes, more than 6 months a year", go: "rfe_food", set: { seasonal: false } },
+        { label: "No, 6 months or less (seasonal)", go: "rfe_food", set: { seasonal: true } }
+      ]
+    };
+
+    N.rfe_food = {
+      q: "Will you prepare or serve ready-to-eat food in the store?",
+      help: "For example: a deli counter, hot food bar, pizza, made-to-order sandwiches, or coffee drinks.",
+      choices: [
+        { label: "Yes", go: "R_rfe", set: { rteFood: true } },
+        { label: "No, retail sales only", go: "R_rfe", set: { rteFood: false } }
+      ]
+    };
+
+    /* ---------- FARM ---------- */
+    N.farm_products = {
+      q: "What farm products do you plan to sell?",
+      help: "Check all that apply.",
+      multi: [
+        { id: "produce", label: "Whole, uncut fruits and vegetables" },
+        { id: "cutproduce", label: "Cut, peeled, or processed produce", desc: "Cut melon, salads, salsa, canned or pickled vegetables" },
+        { id: "eggs", label: "Eggs from my flock" },
+        { id: "poultry", label: "Chickens I raise and slaughter myself" },
+        { id: "meat", label: "Beef, pork, lamb, or goat from my animals" },
+        { id: "nonamenable", label: "Rabbit or other non-amenable species I raise, slaughter, and process" },
+        { id: "sweet", label: "Honey, maple syrup, sorghum, apple syrup, or apple butter I produce" },
+        { id: "cider", label: "Cider or juice I make on my farm" },
+        { id: "baked", label: "Baked goods, jams, or other home-made items", desc: "We’ll point you to the cottage food rules" }
+      ],
+      go: "R_farm"
+    };
+
+    /* ---------- NONPROFIT ---------- */
+    N.np_type = {
+      q: "What kind of organization is it?",
+      choices: [
+        { label: "Church", go: "np_premises", set: { np: "listed" } },
+        { label: "School", go: "np_premises", set: { np: "listed" } },
+        { label: "Fraternal or veterans organization", go: "np_premises", set: { np: "listed" } },
+        { label: "Volunteer fire department or volunteer EMS", go: "np_premises", set: { np: "listed" } },
+        { label: "Another 501(c)(3) nonprofit", desc: "Booster clubs, charities, community groups with 501(c)(3) status", go: "np_c3" },
+        { label: "Not a tax-exempt organization", desc: "Same rules as any other seller", go: "event_org_plain" }
+      ]
+    };
+
+    N.np_premises = {
+      q: "Will the food be prepared or served on your organization’s own property?",
+      help: "For example, a fish fry in the church hall or a pancake breakfast at the firehouse.",
+      choices: [
+        { label: "Yes, on our own property", go: "np_days" },
+        { label: "No, at another location (a fair, park, or someone else’s building)", go: "R_np_license" }
+      ]
+    };
+
+    N.np_days = {
+      q: "Will the food sales last 7 consecutive days or less, and 52 separate days or less in the licensing year?",
+      help: "The Ohio food licensing year runs March 1 through the last day of February.",
+      choices: [
+        { label: "Yes, within those limits", go: "R_np_exempt" },
+        { label: "No, more often than that", go: "R_np_license" }
+      ]
+    };
+
+    N.np_c3 = {
+      q: "Does your fundraiser meet all of these conditions?",
+      moreOpen: true,
+      moreTitle: "Conditions",
+      more: ul([
+        "Sales take place <strong>inside a building</strong>.",
+        "Food is <strong>low-risk</strong>: packaged foods or foods that don’t need refrigeration (no cooking or hot holding).",
+        "Sales last <strong>7 consecutive days or less</strong>, and <strong>52 separate days or less</strong> in the licensing year."
+      ]),
+      choices: [
+        { label: "Yes, all of them", go: "R_np_c3_exempt" },
+        { label: "No", go: "R_np_license" }
+      ]
+    };
+
+    /* ---------- VENDING ---------- */
+    N.vend_what = {
+      q: "What will your vending machines sell?",
+      choices: [
+        { label: "Only sealed snacks and drinks that don’t need refrigeration", desc: "Chips, candy, gum, nuts, canned or bottled soda", go: "R_vend_exempt" },
+        { label: "Foods that need refrigeration or heating", desc: "Sandwiches, salads, milk, yogurt, hot meals, fresh-brewed coffee", go: "R_vend_license" }
+      ]
+    };
+
+    /* ---------------------------------------------------------------
+       RESULTS
+       --------------------------------------------------------------- */
+    function R(fn) { return { result: fn }; }
+
+    N.R_giveaway = R(function () {
+      return { badge: "ok", title: "You don’t need a food license to give food away for free.",
+        html:
+          "<p>In Ohio, a food service operation is one that serves food <strong>“for a charge or required donation.”</strong> A retail food establishment is one that sells food. Truly free food is neither one.</p>" +
+          box("lic", "Be careful with donations and admission", ul([
+            "<strong>A donation jar is fine</strong> if giving is truly optional. Everyone gets food whether or not they give.",
+            "<strong>Don’t post a suggested or minimum donation amount</strong> (like “$5 suggested donation”). Ohio law treats that as a required donation, so a license is needed.",
+            "<strong>Food included in a paid ticket or admission</strong> counts as selling food.",
+            "<strong>“Free with purchase”</strong> counts as selling food, because the food is part of what the customer paid for."
+          ])) +
+          "<h4>Please still keep food safe</h4>" + ul([
+            "Wash hands often. Use gloves or utensils for ready-to-eat food.",
+            "Keep cold foods at 41°F or colder and hot foods at 135°F or hotter.",
+            "Anyone who is sick with vomiting or diarrhea should not handle food.",
+            "Label foods that contain major allergens (milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, soy, sesame)."
+          ]) +
+          "<p>Donating food to a food pantry or charity? Ohio law protects people who donate food in good faith (" + a("https://codes.ohio.gov/ohio-revised-code/section-2305.37", "ORC 2305.37") + ").</p>" +
+          cite(a(LINKS.orc371701, "ORC 3717.01(C) and (F)"))
+      };
+    });
+
+    N.R_unsure = R(function () {
+      return { badge: "info", title: "Let’s talk it through.",
+        html: "<p>Food businesses come in all shapes. Call or email us with a short description of what you want to sell and where. We’ll help you find the right license, or confirm that you don’t need one.</p>" };
+    });
+
+    N.R_wholesale = R(function () {
+      return { badge: "lic", title: "You will likely need a license from the Ohio Department of Agriculture.",
+        html:
+          "<p>Making packaged foods to sell <strong>wholesale</strong> (to stores, restaurants, or distributors) is food processing. In Ohio, ODA licenses and inspects food processing, not the local health district.</p>" +
+          ul([
+            "Products must be made in an approved facility, not a home kitchen, unless they are on the <strong>cottage food list</strong>. Labeled cottage foods can be sold to Ohio stores and restaurants with no license.",
+            "Acidified foods (salsa, pickles, sauces) and low-acid canned foods usually need a <strong>process review</strong> and federal registration.",
+            "Some businesses rent time in a licensed commercial or shared-use kitchen."
+          ]) +
+          "<p><strong>Contact:</strong> " + ODA + ". " + a(LINKS.odaFood, "ODA Division of Food Safety") + ".</p>"
+      };
+    });
+
+    N.R_home_not_qualify = R(function () {
+      return { badge: "no", title: "Your kitchen may not qualify as a cottage food or home bakery kitchen.",
+        html:
+          "<p>Ohio limits cottage food and home bakery production to the <strong>owner-occupied primary residence</strong>, with one ordinary home stove or oven. If your situation is different (renting, a second kitchen, commercial equipment), call ODA before you start. They make that determination.</p>" +
+          "<p>Other options:</p>" + ul([
+            "Rent time in a licensed commercial or shared-use kitchen.",
+            "Get your own licensed facility (ODA for food processing, or the health district for food service)."
+          ]) + "<p><strong>Contact:</strong> " + ODA + ".</p>" +
+          cite(a("https://codes.ohio.gov/ohio-revised-code/section-3715.01", "ORC 3715.01(A)(17)"))
+      };
+    });
+
+    N.R_cottage = R(function (s) {
+      var w = s.multi_cottage_where || [];
+      var ok = [], lic = [], no = [], info = [];
+      if (w.indexOf("home") > -1) ok.push("<strong>From your home:</strong> no license needed.");
+      if (w.indexOf("fm") > -1) ok.push("<strong>Farmers markets:</strong> no license needed. Ask the market manager whether the market is registered with ODA.");
+      if (w.indexOf("farmmkt") > -1) ok.push("<strong>ODA-registered farm markets:</strong> no license needed.");
+      if (w.indexOf("govfest") > -1) ok.push("<strong>Festivals run by a city, village, township, or county (7 days or less):</strong> no license needed.");
+      if (w.indexOf("stores") > -1) ok.push("<strong>Ohio grocery stores and restaurants:</strong> licensed stores may sell, and restaurants may use, properly labeled cottage foods.");
+      if (w.indexOf("private") > -1) lic.push("<strong>Private events</strong> (craft shows, flea markets, church bazaars, pop-ups, private fairs) are <em>not</em> covered by the cottage food exemption. You’ll need a <strong>temporary retail food establishment license</strong> for each event from the health district where it’s held. If you sell at many events, a <strong>low-risk mobile retail food establishment license</strong> (good statewide for the year) may cost less.");
+      if (w.indexOf("online") > -1) info.push("<strong>Online orders:</strong> cottage foods must stay in Ohio, and the rules don’t spell out online ordering, shipping, or delivery. Call ODA before selling online.");
+      if (w.indexOf("outofstate") > -1) no.push("<strong>Outside Ohio:</strong> cottage foods may not be sold outside Ohio, including by shipping.");
+      if (!w.length) info.push("You didn’t select a location. Cottage foods may be sold from your home, at farmers markets, at registered farm markets, at government-run festivals, and through Ohio stores and restaurants.");
+
+      var badge = no.length ? "no" : (lic.length ? "lic" : "ok");
+      var title = lic.length || no.length ? "You can make cottage foods at home with no license, but some of your sales locations need attention."
+                                           : "You don’t need a license to make and sell these cottage foods.";
+      var h = "";
+      if (ok.length) h += box("ok", "No license needed", ul(ok));
+      if (lic.length) h += box("lic", "License needed", ul(lic) + "<p>" + tempTiming() + "</p>");
+      if (no.length) h += box("no", "Not allowed", ul(no));
+      if (info.length) h += box("info", "Check first", ul(info));
+      h += "<h4>Every cottage food must be labeled with:</h4>" + ul([
+        "The product name",
+        "Net weight or volume",
+        "Ingredients in order of weight, with major food allergens declared",
+        "Your business name and address",
+        "The statement <strong>“This Product is Home Produced”</strong>"
+      ]) +
+      "<p>Also: no vacuum sealing (reduced oxygen packaging). ODA may take samples to check labels and safety.</p>" +
+      cite(a(LINKS.oacCottage, "OAC Chapter 901:3-20") + "; ORC 3715.023, 3715.025; " + a(LINKS.orc371722, "ORC 3717.22(B)(2), (6), (15), (16)"));
+      return { badge: badge, title: title, html: h, cottage: true };
+    });
+
+    N.R_bakery = R(function (s) {
+      var w = s.multi_bakery_where || [];
+      var lines = [];
+      if (w.indexOf("home") > -1) lines.push("<strong>From your home:</strong> covered by your ODA home bakery registration. Health districts generally don’t require a separate license for sales from the home. Confirm with us.");
+      if (w.indexOf("away") > -1) lines.push("<strong>Farmers markets, events, and pop-ups:</strong> home bakery products are <em>not</em> exempt from local licensing like cottage foods are. You’ll need a <strong>temporary</strong> (per event) or <strong>mobile retail food establishment license</strong> from the health district, and a way to keep refrigerated items cold.");
+      if (w.indexOf("stores") > -1) lines.push("<strong>Stores, cafés, restaurants:</strong> ask ODA how your registration applies to sales to other businesses.");
+      if (w.indexOf("outofstate") > -1) lines.push("<strong>Outside Ohio:</strong> the cottage food ban on out-of-state sales does not apply to home bakery products, but the other state’s rules do. Check with that state.");
+      return { badge: "lic", title: "You will need a Home Bakery registration from the Ohio Department of Agriculture.",
+        html:
+          box("lic", "Home Bakery registration (ODA)", ul([
+            "<strong>Fee:</strong> $10 per year. The registration year runs October 1 to September 30.",
+            "<strong>Inspection:</strong> ODA inspects your home kitchen before registering you.",
+            "<strong>No pets</strong> in the home, and <strong>no carpet</strong> in the kitchen.",
+            "<strong>Water test</strong> required if you’re on a private well or other non-public water source.",
+            "One ordinary home stove or oven (a double oven is OK)."
+          ]) + "<p><strong>To apply:</strong> request an inspection from ODA at foodsafety@agri.ohio.gov or (614) 728-6250. " + a(LINKS.homeBakery, "ODA Home Bakery page") + ".</p>") +
+          (lines.length ? "<h4>Where you plan to sell</h4>" + ul(lines) : "") +
+          "<p>Home bakery products must be labeled the same way as cottage foods: name, net quantity, ingredients and allergens, business name and address, and “This Product is Home Produced.”</p>" +
+          cite(a("https://codes.ohio.gov/ohio-revised-code/section-911.02", "ORC 911.02") + "; " + a(LINKS.homeBakery, "ODA Home Bakery Registration"))
+      };
+    });
+
+    N.R_processing = R(function () {
+      return { badge: "no", title: "These foods can’t be made in a home kitchen for sale.",
+        html:
+          "<p>Salsa, sauces, pickles, canned vegetables, jerky, beverages, home-dried or freeze-dried foods, and similar products are higher risk. They are not cottage foods, so they must be made in a <strong>licensed facility</strong>.</p>" +
+          ul([
+            "Rent time in a licensed commercial or shared-use kitchen, or work with a co-packer.",
+            "To make and package these foods yourself, you’ll generally need an <strong>ODA food processing license</strong>. Acidified and canned foods also need a process review.",
+            "Selling them at events also requires a local temporary or mobile license."
+          ]) +
+          "<p class=\"ccfw-hint\">Pet treats and animal food are regulated by ODA’s feed program, not the food safety rules in this tool.</p>" +
+          "<p><strong>Contact:</strong> " + ODA + ".</p>" +
+          cite(a(LINKS.oacCottage, "OAC 901:3-20-05") + "; ORC 3715.025")
+      };
+    });
+
+    N.R_meals_on_exempt = R(function () {
+      return { badge: "ok", title: "You may be exempt from a food service license.",
+        html:
+          "<p>Ohio law exempts an <strong>owner-occupied private home</strong> that serves meals to guests <strong>on the premises</strong>, up to <strong>115 meals per week</strong>, if it meets this condition:</p>" +
+          box("lic", "Required notice", "<p>You must post a notice where every guest can see it, stating that your home is <strong>not required to be licensed as a food service operation</strong>.</p>") +
+          ul([
+            "Food safety basics still apply: handwashing, cooking and holding temperatures, and keeping sick people away from food.",
+            "Check local zoning before having customers come to your home.",
+            "Please contact us before you start so we can confirm your plans fit the exemption."
+          ]) + cite(a(LINKS.orc371742, "ORC 3717.42(B)(13)"))
+      };
+    });
+
+    N.R_meals_off_exempt = R(function () {
+      return { badge: "ok", title: "You may be exempt from a food service license.",
+        html:
+          "<p>Ohio law exempts an individual who prepares full meals or meal components in their home for service <strong>off the premises</strong>, up to <strong>20 meals or meal components in any 7-day period</strong>.</p>" +
+          ul([
+            "Go over 20 in a 7-day period, and you’ll need a licensed kitchen.",
+            "This exemption is for individual meals or components. Packaged products for retail sale (salsa, canned goods, jerky) follow different rules.",
+            "Food safety basics still apply, especially keeping food cold or hot while it travels.",
+            "Please contact us before you start so we can confirm your plans fit the exemption."
+          ]) + cite(a(LINKS.orc371742, "ORC 3717.42(B)(14)"))
+      };
+    });
+
+    N.R_fso_kitchen = R(function () {
+      return { badge: "lic", title: "You’ll need a licensed kitchen and a food service operation license.",
+        html:
+          "<p>At that volume, your meals don’t fit Ohio’s home exemptions. Options include:</p>" + ul([
+            "Rent time in a licensed commercial or shared-use kitchen, and get the right license for how you sell (catering, mobile, or a fixed location).",
+            "Open your own licensed food service operation. New kitchens go through plan review before construction."
+          ]) + "<p>Call us. We’ll help you find the best path.</p>" + cite(a(LINKS.orc371742, "ORC 3717.42(B)(13)–(14)"))
+      };
+    });
+
+    /* Events */
+    N.R_temp_fso = R(function () {
+      return { badge: "lic", title: "You will need a Temporary Food Service Operation license.",
+        html:
+          box("lic", "Temporary Food Service Operation (TFSO)", ul([
+            "Needed for each event where you serve ready-to-eat food. An event can last <strong>no more than 5 consecutive days</strong>.",
+            "Issued by the health district where the event takes place. For Clinton County events, that’s us.",
+            tempTiming(),
+            "Church, school, and nonprofit groups may qualify for a reduced <strong>noncommercial</strong> fee."
+          ])) +
+          "<h4>What you’ll need at the event</h4>" + ul([
+            "Food from <strong>approved sources</strong>. Food cooked in a home kitchen can’t be served, except labeled cottage foods.",
+            "A handwashing station with warm water, soap, and paper towels.",
+            "Thermometers, and equipment to keep cold foods at 41°F or below and hot foods at 135°F or above.",
+            "Overhead cover, and food stored off the ground."
+          ]) +
+          box("info", "Doing lots of events?", "<p>A <strong>mobile food service operation license</strong> is annual and good statewide. If you’ll work more than a few events, it may cost less than buying a temporary license for each one.</p>") +
+          cite(a(LINKS.orc371701, "ORC 3717.01(K)") + "; OAC 3701-21")
+      };
+    });
+
+    N.R_temp_rfe = R(function () {
+      return { badge: "lic", title: "You will need a Temporary Retail Food Establishment license.",
+        html:
+          box("lic", "Temporary Retail Food Establishment (TRFE)", ul([
+            "Needed for each event where you sell packaged foods that need refrigeration, bulk foods, or homemade foods outside the cottage food exemptions. An event can last <strong>no more than 5 consecutive days</strong>.",
+            "Issued by the health district where the event takes place.",
+            tempTiming(),
+            "Refrigerated items must stay cold the whole time (coolers with ice or ice packs are often fine for low-risk vendors)."
+          ])) +
+          box("info", "Doing lots of events?", "<p>A <strong>low-risk mobile retail food establishment license</strong> is annual, good statewide, and costs half the regular mobile fee. Vendors who sell packaged foods at markets and events all season often choose it.</p>") +
+          cite(a(LINKS.orc371701, "ORC 3717.01(E)") + "; OAC 901:3-4")
+      };
+    });
+
+    N.R_event_cottage = R(function (s) {
+      if (s.gov) {
+        return { badge: "ok", title: "No license is needed to sell cottage foods at a government-run festival.",
+          html: "<p>Cottage foods may be sold with no license at a festival or celebration organized by a city, village, township, or county that lasts 7 days or less, as long as they’re properly labeled.</p>" +
+            "<p class=\"ccfw-hint\">Selling <strong>home bakery</strong> products (like cheesecake or cream pies) at the festival? Those are not covered. You’ll need a temporary or mobile retail food establishment license.</p>" +
+            cite(a(LINKS.orc371722, "ORC 3717.22(B)(15)")) };
+      }
+      return { badge: "lic", title: "You will need a Temporary Retail Food Establishment license for this event.",
+        html: "<p>The cottage food exemption covers sales from your home, farmers markets, registered farm markets, and government-run festivals. It does <strong>not</strong> cover privately run events like craft shows, flea markets, church bazaars, pop-ups, or private fairs.</p>" +
+          ul(["Get a <strong>temporary retail food establishment license</strong> for each event (5 consecutive days or less).", tempTiming(),
+              "Selling at many events? A <strong>low-risk mobile retail food establishment license</strong> is annual and good statewide."]) +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)"), "") };
+    });
+
+    N.R_event_produce = R(function (s) {
+      return { badge: s.gov ? "ok" : "info", title: s.gov ? "No license is needed for these items at a government-run festival." : "These items are usually low-risk, but check with us for private events.",
+        html: "<p>Whole, uncut produce, and honey, maple syrup, sorghum, apple syrup, or apple butter from a qualifying producer, may be sold with no license at farmers markets, registered farm markets, roadside stands (produce only), and festivals run by a city, village, township, or county.</p>" +
+          (s.gov ? "" : "<p>The law doesn’t list privately run events for these exemptions. Contact us before the event and we’ll tell you whether a temporary license is needed.</p>") +
+          "<p>Cutting, sampling, or processing produce at the event makes it a prepared food, and a license is needed.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(2), (3), (15)")) };
+    });
+
+    N.R_event_prepack = R(function (s) {
+      return { badge: "ok", title: "You probably don’t need a license for factory-sealed, shelf-stable items.",
+        html: "<p>Selling only commercially prepackaged foods that don’t need refrigeration is exempt if your display space is small:</p>" + ul([
+          "<strong>Under 100 cubic feet</strong> of display at farmers markets and government-run festivals.",
+          "<strong>Under 200 cubic feet</strong> of display everywhere else."
+        ]) + "<p>Add anything that needs refrigeration, or open, pour, or portion anything, and a temporary license is needed.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(1), (2), (13), (15)")) };
+    });
+
+    /* Mobile */
+    N.R_mobile = R(function (s) {
+      var type, risk;
+      if (s.mob === "high") { type = "Mobile Food Service Operation (MFSO)"; risk = "high risk"; }
+      else if (s.mob === "lowfso") { type = "Mobile Food Service Operation (MFSO)"; risk = "likely low risk"; }
+      else { type = "Mobile Retail Food Establishment (MRFE)"; risk = "low risk"; }
+      var who = s.hq === "clinton" ? "Since your business is based in Clinton County, <strong>apply with us</strong>."
+              : s.hq === "ohio" ? "Apply with the health district where your business is headquartered, not Clinton County (see below)."
+              : "Apply with the Ohio health district where you first operate each licensing year (see below).";
+      var where = "";
+      if (s.hq === "ohio") {
+        where = box("info", "Where to apply: your home health district, not Clinton County",
+          "<p>Ohio mobile food licenses are issued by the health district where your business is <strong>headquartered</strong>. Since your business is based outside Clinton County, <strong>you probably won’t get your license from us</strong>.</p>" +
+          ul([
+            "<strong>Contact the health district for the county or city where your business is based.</strong> They’ll tell you their application process, plan review, inspection, and fees. " + a(LINKS.findLHD, "Find your local health district") + ".",
+            "Once that district licenses you, your mobile license is <strong>valid in Clinton County</strong> and the rest of Ohio. You don’t need a separate Clinton County mobile license.",
+            "Carry your license on the unit. Clinton County Health District staff may inspect your unit when you operate here, for example at fairs and festivals.",
+            "Event organizers in Clinton County may ask for a copy of your license before the event."
+          ]));
+      } else if (s.hq === "out") {
+        where = box("info", "Where to apply: the first Ohio health district where you operate",
+          "<p>Because your business is based <strong>outside Ohio</strong>, Ohio law says you apply to the health district where you <strong>first operate in Ohio</strong> each licensing year (March 1 to the last day of February).</p>" +
+          ul([
+            "<strong>If Clinton County will be your first Ohio stop this licensing year, apply with us.</strong>",
+            "<strong>If you’ll operate somewhere else in Ohio first, contact that health district</strong> to find out its application process, plan review, inspection, and fees. " + a(LINKS.findLHD, "Find Ohio local health districts") + ".",
+            "Once licensed by an Ohio health district, your mobile license is valid statewide, including Clinton County.",
+            "Your home state’s license or permit does <strong>not</strong> count in Ohio."
+          ]));
+      }
+      return { badge: "lic", title: "You will need a " + type + " license" + (s.hq === "ohio" ? ", probably from your home health district." : "."),
+        html:
+          where +
+          box("lic", type + ", " + risk, ul([
+            who,
+            "One mobile license is good <strong>statewide</strong> for the licensing year (March 1 to the last day of February).",
+            risk.indexOf("low") > -1 ? "Low-risk mobile licenses cost <strong>half</strong> the regular mobile fee. The licensing health district confirms your risk level from your menu." : "Cooking or holding foods hot or cold makes the unit high risk, which means more equipment requirements.",
+            "Stay at one location <strong>more than 40 consecutive days</strong>, and you’re no longer mobile. A regular license is needed then."
+          ])) +
+          "<h4>Plan for</h4>" + ul([
+            "A plan review of your unit and menu before licensing" + (s.hq === "clinton" ? "." : ", done by the health district that licenses you."),
+            "Your business name, city, and phone number displayed on the outside of the unit.",
+            "Any food prepared or stored off the unit must be in an approved, licensed facility (for example, a commissary). Not your home kitchen, except for cottage foods.",
+            s.mob === "high" ? "Handwashing and dishwashing sinks, water and wastewater tanks, and refrigeration that holds 41°F or below." : "Handwashing setup, and cold holding for any packaged items that need refrigeration (low-risk units may use coolers with ice)."
+          ]) + cite(a(LINKS.orc371701, "ORC 3717.01(I), (Q)") + "; OAC 3701-21-02, 3701-21-02.3; OAC 901:3-4-02, 901:3-4-05") };
+    });
+
+    /* Food service operation */
+    N.R_fso_13 = R(function () {
+      return { badge: "ok", title: "Operations serving 13 or fewer people a day are exempt from food service licensing.",
+        html: "<p>Ohio law exempts a food service operation that serves <strong>13 or fewer individuals per day</strong>. Food safety rules still matter, and other permits (zoning, business registration) still apply.</p>" +
+          "<p>Please contact us to confirm. Go over 13 people on any day, and a license is needed.</p>" + cite(a(LINKS.orc371742, "ORC 3717.42(B)(7)")) };
+    });
+    N.R_fso_bnb = R(function () {
+      return { badge: "ok", title: "Small owner-occupied bed and breakfasts are exempt.",
+        html: "<p>Exempt if the B&amp;B is <strong>owner-occupied</strong>, has <strong>6 or fewer guest bedrooms</strong>, serves <strong>only breakfast</strong>, and serves <strong>16 or fewer guests</strong>. Serving other meals, or serving the public, requires a license.</p>" +
+          cite(a(LINKS.orc371742, "ORC 3717.42(B)(2)")) };
+    });
+    N.R_fso_childcare = R(function () {
+      return { badge: "ok", title: "Family child care homes serving the children in their care are exempt.",
+        html: "<p>Type A and Type B family child care homes that serve food only to the children in their care don’t need a food service license. Your child care licensing agency has its own food rules.</p>" +
+          cite(a(LINKS.orc371742, "ORC 3717.42(B)(8)")) };
+    });
+
+    N.R_fso = R(function (s) {
+      var lvl = 1, label;
+      if (s.fso === "catering") lvl = 4;
+      else if (s.fso === "delivery") lvl = 1;
+      else (s.multi_fso_risk || []).forEach(function (id) { var o = N.fso_risk.multi.filter(function (m) { return m.id === id; })[0]; if (o && o.lvl > lvl) lvl = o.lvl; });
+      label = s.fso === "catering" ? "Catering Food Service Operation" : s.fso === "delivery" ? "Food Delivery Sales Operation" : "Food Service Operation";
+      var kind = (s.seasonal ? "Seasonal " : "") + (s.noncommercial ? "Noncommercial " : "") + label;
+      return { badge: "lic", title: "You will need a " + kind + " license.",
+        html:
+          box("lic", kind + ", estimated Risk Level " + ["", "I", "II", "III", "IV"][lvl], ul([
+            "Issued by the " + esc(CONFIG.agency) + " for operations in Clinton County.",
+            s.fso === "catering" ? "Catering is always classified at the highest risk level." : s.fso === "delivery" ? "Food delivery sales operations are always Risk Level I." : "Your risk level is based on your <strong>highest-risk</strong> activity. It sets your inspection frequency and fee. We confirm it during review.",
+            s.seasonal ? "A seasonal license covers operations open <strong>6 months or less</strong> in the licensing year." : "Licenses run March 1 through the last day of February. Renewals are due by March 1.",
+            s.noncommercial ? "Church, school, government, and nonprofit operations may qualify for a reduced noncommercial fee." : "",
+            lvl >= 3 ? "Risk Level III and IV operations need staff with Ohio food safety certification." : ""
+          ].filter(Boolean))) +
+          "<h4>Steps to get licensed</h4>" + ul([
+            "<strong>Plan review first.</strong> Submit your floor plan, equipment list, and menu <em>before</em> you build, remodel, or buy equipment.",
+            "Get zoning and building approvals.",
+            "Apply for your license <strong>at least 10 days before opening</strong>.",
+            "Pass a pre-opening inspection."
+          ]) + otherAgencies() +
+          cite(a(LINKS.orc371701, "ORC 3717.01(F)–(J)") + "; " + a(LINKS.orc371742, "ORC 3717.42") + "; OAC 3701-21-02, 3701-21-02.3") };
+    });
+
+    /* Retail food establishment */
+    N.R_rfe_small = R(function () {
+      return { badge: "ok", title: "Your store is likely exempt from retail food licensing.",
+        html: "<p>Stores selling <strong>only</strong> commercially prepackaged foods that don’t need refrigeration, in displays totaling <strong>under 200 cubic feet</strong>, are exempt. Add refrigerated foods, open packages, or grow past 200 cubic feet, and a license is needed.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(1), (13)")) };
+    });
+    N.R_rfe_roadside = R(function () {
+      return { badge: "ok", title: "Roadside stands selling only whole, uncut produce are exempt.",
+        html: "<p>Exempt as long as everything is <strong>fresh, unprocessed fruits and vegetables</strong>. Add eggs, baked goods, honey, or other items, and different rules apply. Use the “Sell products from my farm” option to check them.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(3)")) };
+    });
+    N.R_rfe_bev = R(function () {
+      return { badge: "ok", title: "Beverage-only sales of this kind are exempt from retail food licensing.",
+        html: "<p>Exempt: establishments selling only alcoholic beverages, prepackaged beverages that don’t need refrigeration, or fountain drinks that don’t need temperature control. A liquor permit from the Ohio Division of Liquor Control is still required to sell alcohol.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(12)–(14)")) };
+    });
+    N.R_rfe_500 = R(function () {
+      return { badge: "ok", title: "You may be exempt as a small, seasonal, low-risk retailer.",
+        html: "<p>Exempt if your food would be <strong>Risk Level I</strong> if licensed (for example, prepackaged or shelf-stable items), displays total <strong>under 500 square feet</strong>, and you sell food <strong>6 months or less</strong> per calendar year. Contact us to confirm before you open.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(5)")) };
+    });
+    N.R_rfe = R(function (s) {
+      var kind = (s.seasonal ? "Seasonal " : "") + "Retail Food Establishment";
+      return { badge: "lic", title: "You will need a " + kind + " license.",
+        html:
+          box("lic", kind, ul([
+            "Issued by the " + esc(CONFIG.agency) + " under Ohio Department of Agriculture rules.",
+            "Fees depend on risk level and on whether the store is under or over 25,000 square feet. Risk level is based on your highest-risk activity (for example, slicing deli meats or cutting raw meat raises it).",
+            s.rteFood ? "Because you’ll serve ready-to-eat food, you may need a <strong>food service endorsement</strong> on your retail license. We’ll sort that out in plan review." : "",
+            s.seasonal ? "A seasonal license covers stores open 6 months or less." : "Licenses run March 1 through the last day of February."
+          ].filter(Boolean))) +
+          "<h4>Steps to get licensed</h4>" + ul([
+            "<strong>Plan review first</strong>, before you build, remodel, or buy equipment.",
+            "Apply <strong>at least 10 days before opening</strong>.",
+            "Pass a pre-opening inspection."
+          ]) + otherAgencies() +
+          cite(a(LINKS.orc371701, "ORC 3717.01(C)") + "; ORC 3717.24; OAC 901:3-4-02, 901:3-4-05") };
+    });
+
+    /* Farm */
+    N.R_farm = R(function (s) {
+      var p = s.multi_farm_products || [], lines = [], anyLic = false;
+      function add(tone, html) { if (tone !== "ok") anyLic = true; lines.push(box(tone, html[0], html[1])); }
+      if (p.indexOf("produce") > -1) add("ok", ["Whole, uncut produce", "<p>No license needed at a roadside stand, farmers market, ODA-registered farm market, or government-run festival.</p>"]);
+      if (p.indexOf("cutproduce") > -1) add("lic", ["Cut or processed produce", "<p>Cutting, peeling, or processing produce makes it a prepared food. Selling it needs a license, and items like salsa or canned vegetables must be made in a licensed facility. Call us or ODA.</p>"]);
+      if (p.indexOf("eggs") > -1) add("info", ["Eggs", "<p>With <strong>500 birds or fewer</strong>, selling eggs directly from your farm needs no license. Selling eggs anywhere else (farmers markets, events, stores, restaurants) usually needs a registration, inspection, or local license. Call us or ODA before you start. Keep eggs refrigerated.</p>"]);
+      if (p.indexOf("poultry") > -1) add("ok", ["Chickens you raise and slaughter", "<p>If you raise and slaughter <strong>1,000 chickens or fewer</strong> a year, you may sell dressed chickens directly to consumers, or at a qualifying farm product auction, with no retail food license. ODA rules on slaughter and labeling still apply.</p>"]);
+      if (p.indexOf("meat") > -1) add("lic", ["Beef, pork, lamb, or goat", "<p>Meat sold by the cut must be processed at a USDA- or ODA-inspected plant. Selling packaged, inspected meat to customers generally needs a <strong>retail food establishment</strong> license (often a <strong>low-risk mobile</strong> license for markets and events), or an ODA farm market registration on the farm. Selling a live animal or a share before custom processing works differently. Call ODA.</p>"]);
+      if (p.indexOf("nonamenable") > -1) add("ok", ["Rabbit and other non-amenable species", "<p>If you raise, slaughter, and process them yourself and sell directly to consumers (or at a qualifying farm product auction), no retail food license is needed. ODA rules still apply.</p>"]);
+      if (p.indexOf("sweet") > -1) add("ok", ["Honey, maple syrup, sorghum, apple syrup or butter", "<p>From a qualifying producer: no license needed to sell from your site, at farmers markets, at ODA-registered farm markets, or at government-run festivals. Label requirements apply.</p>"]);
+      if (p.indexOf("cider") > -1) add("info", ["Cider and juice", "<p>Cider and juices made on site are exempt only at an <strong>ODA-registered farm market</strong>. Selling them anywhere else, or making them elsewhere, needs a license. Contact ODA about juice processing rules.</p>"]);
+      if (p.indexOf("baked") > -1) add("info", ["Baked goods, jams, and home-made items", "<p>These follow Ohio’s cottage food and home bakery rules. Start over and choose “Make food in my home kitchen to sell.”</p>"]);
+      if (!p.length) lines.push("<p>No products selected. Go back and choose at least one.</p>");
+      return { badge: anyLic ? "info" : "ok", title: anyLic ? "Some of your farm products need a license or a check-in first." : "Your farm products can be sold without a food license, within the limits below.",
+        html: lines.join("") +
+          "<p>Want to sell more products right on the farm? An <strong>ODA farm market registration</strong> exempts registered farm markets from retail licensing for a set list of items. " + a(LINKS.farmMarket, "ODA farm market registration form") + ".</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(2), (3), (8)–(10), (15), (16)")) };
+    });
+
+    /* Nonprofit */
+    N.R_np_exempt = R(function () {
+      return { badge: "ok", title: "Your organization’s food sales are exempt from food service licensing.",
+        html: "<p>Churches, schools, fraternal and veterans organizations, and volunteer fire and EMS organizations may serve food on their own premises for <strong>7 consecutive days or less</strong>, and <strong>52 separate days or less</strong> per licensing year, with no license. Groups raising all their funds for one of these organizations qualify too.</p>" +
+          ul(["Keep a simple log of your sale days so you know where you stand on the 52-day limit.",
+              "Food safety still matters: handwashing, temperatures, and keeping sick volunteers out of the kitchen. We’re happy to train your volunteers."]) +
+          cite(a(LINKS.orc371742, "ORC 3717.42(B)(5)")) };
+    });
+    N.R_np_c3_exempt = R(function () {
+      return { badge: "ok", title: "Your fundraiser is likely exempt from retail food licensing.",
+        html: "<p>A 501(c)(3) nonprofit raising funds with <strong>low-risk</strong> (Risk Level I) food, sold <strong>indoors</strong>, for 7 consecutive days or less and 52 separate days or less per licensing year, is exempt. Contact us if you’re unsure whether your food counts as low-risk.</p>" +
+          cite(a(LINKS.orc371722, "ORC 3717.22(B)(4)")) };
+    });
+    N.R_np_license = R(function () {
+      return { badge: "lic", title: "Your organization will likely need a license.",
+        html: ul([
+            "For a short event (5 consecutive days or less), get a <strong>temporary food service operation license</strong>. Nonprofits, churches, and schools often qualify for a reduced <strong>noncommercial</strong> fee.",
+            "For an ongoing operation, like a regular concession stand or weekly dinners beyond the limits, a <strong>noncommercial food service operation</strong> license may fit better.",
+            tempTiming()
+          ]) + "<p>Call us. We’ll help you pick the right one.</p>" +
+          cite(a(LINKS.orc371742, "ORC 3717.42(B)(5)") + "; OAC 3701-21-01(N)–(O)") };
+    });
+
+    /* Vending */
+    N.R_vend_exempt = R(function () {
+      return { badge: "ok", title: "Vending machines with only shelf-stable sealed foods are exempt.",
+        html: "<p>Vending locations that dispense only prepackaged foods that don’t need refrigeration, or nuts, gum, and candy, don’t need a food service license.</p>" + cite(a(LINKS.orc371742, "ORC 3717.42(B)(9)")) };
+    });
+    N.R_vend_license = R(function () {
+      return { badge: "lic", title: "You will need a Vending Machine Location license.",
+        html: "<p>Machines that dispense foods needing refrigeration or heating require a <strong>vending machine location</strong> food service license for each location. Machines more than 150 feet apart count as separate locations.</p>" + cite(a(LINKS.orc371701, "ORC 3717.01(L)") + "; " + a(LINKS.orc371742, "3717.42(B)(9)")) };
+    });
+
+    /* ---------------------------------------------------------------
+       Engine
+       --------------------------------------------------------------- */
+    var body = document.getElementById("ccfw-body");
+    var progress = document.getElementById("ccfw-progress");
+    var backBtn = document.getElementById("ccfw-back");
+    var restartBtn = document.getElementById("ccfw-restart");
+
+    var current = "start", state = {}, history = [], answers = [];
+
+    function go(next, answerLabel, setObj) {
+      history.push({ node: current, state: JSON.stringify(state), answers: answers.length });
+      if (answerLabel !== undefined) answers.push({ q: N[current].q, a: answerLabel });
+      if (setObj) for (var k in setObj) state[k] = setObj[k];
+      current = typeof next === "function" ? next(state) : next;
+      render(true);
+    }
+    function back() {
+      if (!history.length) return;
+      var h = history.pop();
+      current = h.node; state = JSON.parse(h.state); answers.length = h.answers;
+      render(true);
+    }
+    function restart() { current = "start"; state = {}; history = []; answers = []; render(true); }
+
+    function render(focus) {
+      var node = N[current], h = "";
+      backBtn.hidden = history.length === 0;
+      restartBtn.hidden = history.length === 0;
+      document.querySelector("#ccfw .ccfw-toolbar").style.display = history.length === 0 ? "none" : "";
+
+      if (node.result) {
+        var r = node.result(state), b = BADGE[r.badge];
+        progress.textContent = "";
+        h += '<section class="ccfw-answer ' + b[0] + '" aria-labelledby="ccfw-answer-title">' +
+               '<p class="ccfw-answer-label">Your result</p>' +
+               '<p class="ccfw-badge ' + b[0] + '"><span aria-hidden="true">' + b[1] + "</span> " + b[2] + "</p>" +
+               '<h3 tabindex="-1" id="ccfw-answer-title">' + r.title + "</h3>" +
+             "</section>";
+        h += '<h4 class="ccfw-details-head">What this means for you</h4>';
+        h += r.html;
+        h += "<h4>Questions? Contact us</h4>" + contactBlock();
+        if (answers.length) {
+          h += '<details class="ccfw-answers"><summary>Your answers</summary><dl>' +
+            answers.map(function (x) { return "<dt>" + esc(x.q) + "</dt><dd>" + esc(x.a) + "</dd>"; }).join("") + "</dl></details>";
+        }
+        h += '<div class="ccfw-actions"><button type="button" class="ccfw-primary" id="ccfw-print">Print or save my results</button>' +
+             '<button type="button" class="ccfw-secondary" id="ccfw-again">Start over</button></div>';
+        h += '<p class="ccfw-disclaimer">This tool gives general guidance based on Ohio law and rules as of ' + esc(CONFIG.lastReviewed) +
+             ". It is not a legal determination or a license. Final decisions are made by the " + esc(CONFIG.agency) +
+             " or the Ohio Department of Agriculture, based on the full details of your operation.</p>";
+        body.innerHTML = h;
+        document.getElementById("ccfw-print").onclick = function () { window.print(); };
+        document.getElementById("ccfw-again").onclick = restart;
+      } else {
+        progress.textContent = current === "start" ? "" : "Question " + (history.length + 1);
+        if (current === "start") h += '<div class="ccfw-planning" role="note"><p><strong>For planning purposes only.</strong> This tool gives general guidance to help you plan. It is not a license decision. As we learn more about your operation, conversations with ' + esc(CONFIG.agency) + ' staff may lead to a different licensing determination.</p></div>';
+        h += '<h3 tabindex="-1" id="ccfw-q">' + node.q + "</h3>";
+        if (node.help) h += '<p class="ccfw-hint">' + node.help + "</p>";
+        if (node.more) h += "<details" + (node.moreOpen ? "" : "") + "><summary>" + (node.moreTitle || "More information") + "</summary>" + node.more + "</details>";
+
+        if (node.choices) {
+          h += '<ul class="ccfw-choices' + (node.big ? " ccfw-big" : "") + '" aria-labelledby="ccfw-q">';
+          node.choices.forEach(function (c, i) {
+            h += '<li><button type="button" class="ccfw-choice" data-i="' + i + '"><strong>' + c.label + "</strong>" + (c.desc ? "<span>" + c.desc + "</span>" : "") + "</button></li>";
+          });
+          h += "</ul>";
+          body.innerHTML = h;
+          Array.prototype.forEach.call(body.querySelectorAll(".ccfw-choice"), function (btn) {
+            btn.onclick = function () { var c = node.choices[+btn.getAttribute("data-i")]; go(c.go, c.label.replace(/<[^>]+>/g, ""), c.set); };
+          });
+        } else if (node.multi) {
+          var key = "multi_" + current, prev = state[key] || [];
+          h += '<fieldset><legend class="ccfw-sr">' + node.q + "</legend>";
+          node.multi.forEach(function (m) {
+            var id = "ccfw-" + current + "-" + m.id;
+            h += '<div class="ccfw-check"><input type="checkbox" id="' + id + '" value="' + m.id + '"' + (prev.indexOf(m.id) > -1 ? " checked" : "") + '><label for="' + id + '">' + m.label + (m.desc ? "<span>" + m.desc + "</span>" : "") + "</label></div>";
+          });
+          h += '</fieldset><p class="ccfw-error" id="ccfw-err" role="alert"></p><button type="button" class="ccfw-primary" id="ccfw-next">Continue</button>';
+          body.innerHTML = h;
+          Array.prototype.forEach.call(body.querySelectorAll(".ccfw-check"), function (row) {
+            var cb = row.querySelector("input");
+            var sync = function () { row.classList.toggle("is-checked", cb.checked); };
+            sync(); cb.addEventListener("change", sync);
+            row.addEventListener("click", function (e) { if (e.target === row) { cb.checked = !cb.checked; sync(); } });
+            row.style.cursor = "pointer";
+          });
+          document.getElementById("ccfw-next").onclick = function () {
+            var sel = Array.prototype.map.call(body.querySelectorAll("input:checked"), function (x) { return x.value; });
+            if (!sel.length) { document.getElementById("ccfw-err").textContent = "Please check at least one option."; return; }
+            var labels = node.multi.filter(function (m) { return sel.indexOf(m.id) > -1; }).map(function (m) { return m.label; }).join("; ");
+            var o = {}; o[key] = sel;
+            go(node.go, labels, o);
+          };
+        }
+      }
+      if (focus) {
+        var hd = body.querySelector("h3");
+        if (hd) {
+          hd.focus({ preventScroll: true });
+          if (IN_FRAME) { postToParent({ type: "ccfw-step" }); }
+          else { var top = document.getElementById("ccfw").getBoundingClientRect().top; if (top < 0) document.getElementById("ccfw").scrollIntoView({ behavior: "smooth", block: "start" }); }
+        }
+      }
+    }
+
+    /* open the details flagged moreOpen */
+    var _render = render;
+    render = function (f) { _render(f); var n = N[current]; if (n && n.moreOpen) { var d = body.querySelector("details"); if (d) d.open = true; } };
+
+    /* ---------------------------------------------------------------
+       iframe support: report height to the host page so the frame grows
+       to fit (no inner scrollbar). Only a number is sent, nothing personal.
+       --------------------------------------------------------------- */
+    var IN_FRAME = window.self !== window.top;
+    function postToParent(msg) { try { window.parent.postMessage(msg, "*"); } catch (e) {} }
+    function reportHeight() {
+      if (!IN_FRAME) return;
+      postToParent({ type: "ccfw-height", height: Math.ceil(document.documentElement.getBoundingClientRect().height) });
+    }
+    if (IN_FRAME) {
+      if (window.ResizeObserver) new ResizeObserver(reportHeight).observe(document.body);
+      window.addEventListener("load", reportHeight);
+      document.addEventListener("toggle", reportHeight, true);   /* <details> open/close */
+      setInterval(reportHeight, 1000);                           /* safety net for older browsers */
+    }
+
+    backBtn.onclick = back;
+    restartBtn.onclick = restart;
+    render(false);
+  })();
+  </script>
+</div>
+
+</body>
+</html>
