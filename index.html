@@ -15,6 +15,14 @@
   <style>
     /* All styles are scoped to #ccfw so they won't collide with the site theme. */
     #ccfw {
+      /* ===== SIZE SETTING =====================================================
+         --ccfw-size shrinks or enlarges the whole tool (text, buttons, spacing).
+         1 = original size, 0.85 = 15% smaller, 0.75 = 25% smaller.
+         You can also override it from the iframe address with ?size=0.8
+         (see the Squarespace snippet), so no GitHub edit is needed to tweak it.
+         ====================================================================== */
+      --ccfw-size: 0.85;
+      zoom: var(--ccfw-size);
       --ccfw-primary: #1d4f73;      /* buttons, headings  (7.9:1 on white) */
       --ccfw-primary-dark: #133650;
       --ccfw-accent: #f2f6f9;       /* panels */
@@ -1114,6 +1122,13 @@
       document.addEventListener("toggle", reportHeight, true);   /* <details> open/close */
       setInterval(reportHeight, 1000);                           /* safety net for older browsers */
     }
+
+    /* Optional size override from the address, e.g. index.html?size=0.8 (allowed range 0.6–1.2) */
+    (function () {
+      var m = /[?&]size=([0-9.]+)/.exec(location.search);
+      var v = m ? parseFloat(m[1]) : NaN;
+      if (v >= 0.6 && v <= 1.2) document.getElementById("ccfw").style.setProperty("--ccfw-size", String(v));
+    })();
 
     backBtn.onclick = back;
     restartBtn.onclick = restart;
